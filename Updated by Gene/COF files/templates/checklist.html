@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card shadow mb-4">
+    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Daily System Infrastructure Checklist Protocol</h5>
+        {% if metadata.completed_by %}
+        <small class="text-light">Committed By: {{ metadata.completed_by }} at {{ metadata.submitted_at }}</small>
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 20%;">Operational Vector</th>
+                        <th style="width: 35%;">Status Metrics</th>
+                        <th style="width: 45%;">Engineering Remarks / Observations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category, data in tasks.items() %}
+                    <tr>
+                        <td><strong>{{ category }}</strong></td>
+                        <td>
+                            <select name="status_{{ category }}" class="form-select form-select-sm">
+                                <option value="Pending" {% if data.status == 'Pending' %}selected{% endif %}>Pending Check</option>
+                                <option value="Completed" {% if data.status == 'Completed' %}selected{% endif %}>✅ Completed</option>
+                                <option value="Needs Attention" {% if data.status == 'Needs Attention' %}selected{% endif %}>⚠ Needs Attention</option>
+                                <option value="Failed" {% if data.status == 'Failed' %}selected{% endif %}>❌ Failed Check</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" name="remarks_{{ category }}" class="form-control form-control-sm" value="{{ data.remarks }}" placeholder="Log system anomalies or confirmation metrics...">
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary d-block mx-auto px-5">Commit Logs to Mainframe</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

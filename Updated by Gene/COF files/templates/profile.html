@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow border-0">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">My Personnel Profile</h5>
+            </div>
+            <div class="card-body p-4">
+                <div class="mb-4">
+                    <p class="mb-1 text-muted">System Username</p>
+                    <h4>{{ user.username }}</h4>
+                    
+                    <p class="mb-1 mt-3 text-muted">Clearance Level</p>
+                    <h5><span class="badge bg-primary">{{ user.role }}</span></h5>
+                </div>
+
+                <hr class="mb-4">
+                
+                <h6 class="fw-bold mb-3">Update Security Key (Password)</h6>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label text-muted small">Current Password</label>
+                        <input type="password" name="current_password" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted small">New Password</label>
+                        <input type="password" name="new_password" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted small">Confirm New Password</label>
+                        <input type="password" name="confirm_password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-warning w-100 fw-bold">Update Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
